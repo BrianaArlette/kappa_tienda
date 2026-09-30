@@ -111,6 +111,38 @@ def mostrar_compra(compra):
 
     print("==================================")
 
+def generar_compra_manual(producto, cantidad, metodo_pago):
+    precio = productos[producto]
+    subtotal = precio * cantidad
+
+    descuento = random.choice([0, 0, 0, 0.05, 0.10])
+
+    monto_descuento = subtotal * descuento
+    total = subtotal - monto_descuento
+
+    compra = {
+        "id_evento": str(uuid.uuid4())[:8],
+        "cliente": siguiente_cliente(),
+
+        "productos": [
+            {
+                "producto": producto,
+                "precio": precio,
+                "cantidad": cantidad,
+                "subtotal": subtotal
+            }
+        ],
+
+        "metodo_pago": metodo_pago,
+        "subtotal": subtotal,
+        "descuento": descuento,
+        "total": round(total, 2),
+        "fecha": datetime.now().strftime("%Y-%m-%d"),
+        "hora": datetime.now().strftime("%H:%M:%S"),
+        "tipo": "MANUAL"
+    }
+
+    return compra
 
 def flujo_compras(intervalo=2):
     while True:
