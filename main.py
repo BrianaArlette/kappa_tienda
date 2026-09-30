@@ -13,6 +13,7 @@ from productor import (
 
 from procesador import ProcesadorVentas
 from visualizador import VisualizadorVentas
+from registro import guardar_evento
 
 
 HOST = "127.0.0.1"
@@ -128,6 +129,8 @@ def main():
                 compra = cola_eventos.get()
 
                 mostrar_compra(compra)
+
+                guardar_evento(compra)
 
                 procesador.procesar_compra(compra)
 
